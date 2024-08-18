@@ -2,7 +2,7 @@
 using Comment.Api.Persistence.Contracts;
 using CommandEntity = Comment.Api.Entities.Comment;
 
-namespace Comment.Api.Endpoints;
+namespace Comment.Api.Endpoints.CreateComment;
 
 public record CreateCommentCommand(
     object UserId,
