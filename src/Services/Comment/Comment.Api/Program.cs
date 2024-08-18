@@ -1,34 +1,41 @@
+using Carter;
 using Comment.Api.Persistence.Context;
 using Comment.Api.Persistence.Contracts;
 using Comment.Api.Persistence.Repositories;
 
-namespace Comment.Api;
 
-public class Program
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+builder.Services.AddMediatR(config =>
 {
-    public static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
+    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+});
 
-        builder.Services.AddSingleton<ICommentContext, CommentContext>();
+builder.Services.AddCarter();
 
-        builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddSingleton<ICommentContext, CommentContext>();
 
-        builder.Services.AddAuthorization();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization();
 
-        var app = builder.Build();
+builder.Services.AddEndpointsApiExplorer();
 
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
+builder.Services.AddSwaggerGen();
 
-        app.UseAuthorization();
+var app = builder.Build();
 
-        app.Run();
-    }
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+
+    app.UseSwaggerUI();
 }
+
+app.UseAuthorization();
+
+app.MapCarter();
+
+app.Run();
