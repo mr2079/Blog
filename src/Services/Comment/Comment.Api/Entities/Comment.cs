@@ -21,13 +21,12 @@ public sealed class Comment : Entity
     public ICollection<Comment>? Replies { get; set; }
 
     public static Comment Create(
-        ObjectId id,
         object userId,
         object articleId,
         string text)
     {
         return new Comment(
-            id,
+            ObjectId.GenerateNewId(),
             userId.ToString()!,
             articleId.ToString()!,
             text);
