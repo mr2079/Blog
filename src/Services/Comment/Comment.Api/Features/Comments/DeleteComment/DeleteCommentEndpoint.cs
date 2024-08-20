@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using Carter;
+﻿using Carter;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -14,7 +14,6 @@ public class DeleteCommentEndpoint() : CarterModule("api/comment")
     {
         app.MapDelete("delete/{id}", async Task<IResult> (
             [FromRoute] string id,
-            IMapper mapper,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
@@ -22,7 +21,7 @@ public class DeleteCommentEndpoint() : CarterModule("api/comment")
 
             var result = await sender.Send(command, cancellationToken);
 
-            var response = mapper.Map<DeleteCommentResponse>(result);
+            var response = result.Adapt<DeleteCommentResponse>();
 
             return Results.Ok(response);
         });

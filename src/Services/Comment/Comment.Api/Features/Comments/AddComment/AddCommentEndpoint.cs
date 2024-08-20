@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using Carter;
+﻿using Carter;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,15 +18,14 @@ public class EditCommentEndpoint() : CarterModule("api/comment")
     {
         app.MapPost("add", async Task<IResult> (
             [FromBody] AddCommentRequest request,
-            IMapper mapper,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
-            var command = mapper.Map<AddCommentCommand>(request);
+            var command = request.Adapt<AddCommentCommand>();
 
             var result = await sender.Send(command, cancellationToken);
 
-            var response = mapper.Map<AddCommentResponse>(result);
+            var response = result.Adapt<AddCommentResponse>();
 
             return Results.Ok(response);
         });

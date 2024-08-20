@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using AutoMapper;
 using BuildingBlocks.CQRS;
 using Comment.Api.Persistence.Contracts;
+using Mapster;
 using CommentEntity = Comment.Api.Entities.Comment;
 
 namespace Comment.Api.Features.Comments.GetComment;
@@ -16,8 +16,7 @@ public record GetCommentListQuery(
 public record GetCommentListResult();
 
 public class GetCommentListHandler(
-    ICommentRepository commentRepository,
-    IMapper mapper)
+    ICommentRepository commentRepository)
     : IQueryHandler<GetCommentListQuery, GetCommentListResult>
 {
     public async Task<GetCommentListResult> Handle(
@@ -48,7 +47,7 @@ public class GetCommentListHandler(
 
         var list = await commentRepository.GetListAsync(predicate, query.Skip, query.Limit);
 
-        var result = mapper.Map<GetCommentListResult>(list);
+        var result = list.Adapt<GetCommentListResult>();
 
         return result;
     }

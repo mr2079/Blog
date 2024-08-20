@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using BuildingBlocks.CQRS;
+﻿using BuildingBlocks.CQRS;
 using Comment.Api.Persistence.Contracts;
+using Mapster;
 using MongoDB.Bson;
 
 namespace Comment.Api.Features.Comments.GetComment;
@@ -12,8 +12,7 @@ public record GetCommentQuery(
 public record GetCommentResult();
 
 public class GetCommentHandler(
-    ICommentRepository commentRepository,
-    IMapper mapper)
+    ICommentRepository commentRepository)
     : IQueryHandler<GetCommentQuery, GetCommentResult>
 {
     public async Task<GetCommentResult> Handle(
@@ -23,7 +22,7 @@ public class GetCommentHandler(
         var comment = await commentRepository.GetAsync(
             c => c.Id == query.Id);
 
-        var result = mapper.Map<GetCommentResult>(comment);
+        var result = comment.Adapt<GetCommentResult>();
 
         return result;
     }

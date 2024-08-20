@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using Carter;
+﻿using Carter;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -19,7 +19,6 @@ public class GetCommentEndpoint() : CarterModule("api/comment")
             [FromQuery] string? articleId,
             [FromQuery] int? skip,
             [FromQuery] int? limit,
-            IMapper mapper,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
@@ -31,20 +30,19 @@ public class GetCommentEndpoint() : CarterModule("api/comment")
 
             var result = await sender.Send(query, cancellationToken);
 
-            var response = mapper.Map<GetCommentListResponse>(result);
+            var response = result.Adapt<GetCommentListResponse>();
 
             return Results.Ok(response);
         });
 
         app.MapGet("/{id}", async Task<IResult> (
             [FromRoute] string id,
-            IMapper mapper,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
             var result = await sender.Send(new GetCommentQuery(ObjectId.Parse(id)), cancellationToken);
 
-            var response = mapper.Map<GetCommentResponse>(result);
+            var response = result.Adapt<GetCommentResponse>();
 
             return Results.Ok(response);
         });
