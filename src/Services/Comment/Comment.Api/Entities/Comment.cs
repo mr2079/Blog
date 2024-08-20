@@ -8,28 +8,33 @@ public sealed class Comment : Entity
         ObjectId id,
         string userId,
         string articleId,
-        string text) : base(id)
+        string text,
+        ObjectId? parentId = null) : base(id)
     {
         UserId = userId;
         ArticleId = articleId;
         Text = text;
+        ParentId = parentId;
     }
 
-    public string UserId { get; set; }
-    public string ArticleId { get; set; }
-    public string Text { get; set; }
-    public ICollection<Comment>? Replies { get; set; }
+    public string UserId { get; private set; }
+    public string ArticleId { get; private set; }
+    public ObjectId? ParentId { get; private set; }
+    public string Text { get; private set; }
+    public ICollection<Comment>? Replies { get; private set; }
 
     public static Comment Create(
         object userId,
         object articleId,
-        string text)
+        string text,
+        ObjectId? parentId = null)
     {
         return new Comment(
             ObjectId.GenerateNewId(),
             userId.ToString()!,
             articleId.ToString()!,
-            text);
+            text,
+            parentId);
     }
 
     public void Update(
@@ -45,34 +50,12 @@ public sealed class Comment : Entity
         Replies = replies;
     }
 
-    public void AddReply(params Comment[] reply)
-    {
-        var replies = Replies?.ToList() ?? new List<Comment>();
-        replies.AddRange(reply);
-        Replies = replies;
-    }
-
-    public void AddReply(IEnumerable<Comment> reply)
-    {
-        var replies = Replies?.ToList() ?? new List<Comment>();
-        replies.AddRange(reply);
-        Replies = replies;
-    }
-
-    public void RemoveReply(Comment reply)
-    {
-        var replies = Replies?.ToList();
-        replies?.Remove(reply);
-        Replies = replies;
-    }
-
     public void RemoveReply(ObjectId id)
     {
         var replies = Replies?.ToList();
         var reply = replies?.SingleOrDefault(c => Equals(c.Id, id));
-        if (reply is not null)
-        {
-            RemoveReply(reply);
-        } 
+        if (reply is null) return;
+        replies?.Remove(reply);
+        Replies = replies;
     }
 }

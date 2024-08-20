@@ -2,13 +2,15 @@
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace Comment.Api.Features.Comments.AddComment;
 
 public record AddCommentRequest(
     object UserId,
     object ArticleId,
-    string Text);
+    string Text,
+    ObjectId? ParentId = null);
 
 public record AddCommentResponse();
 

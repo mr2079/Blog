@@ -62,6 +62,8 @@ public class CommentRepository(
 
     public async Task<bool> DeleteAsync(CommentEntity comment)
     {
+        comment.Delete(true);
+
         var result = await context.Comments
             .ReplaceOneAsync(c => c.Id == comment.Id, comment);
 
