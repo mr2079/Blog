@@ -2,21 +2,21 @@
 using Comment.Api.Persistence.Contracts;
 using CommandEntity = Comment.Api.Entities.Comment;
 
-namespace Comment.Api.Endpoints.CreateComment;
+namespace Comment.Api.Endpoints.AddComment;
 
-public record CreateCommentCommand(
+public record AddCommentCommand(
     object UserId,
     object ArticleId,
-    string Text) : ICommand<CreateCommentResult>;
+    string Text) : ICommand<AddCommentResult>;
 
-public record CreateCommentResult();
+public record AddCommentResult();
 
-public class CreateCommentHandler(
+public class EditCommentHandler(
     ICommentRepository commentRepository)
-    : ICommandHandler<CreateCommentCommand, CreateCommentResult>
+    : ICommandHandler<AddCommentCommand, AddCommentResult>
 {
-    public async Task<CreateCommentResult> Handle(
-        CreateCommentCommand command,
+    public async Task<AddCommentResult> Handle(
+        AddCommentCommand command,
         CancellationToken cancellationToken)
     {
         var comment = CommandEntity.Create(
@@ -27,6 +27,6 @@ public class CreateCommentHandler(
         await commentRepository.CreateAsync(comment);
 
         // TODO
-        return new CreateCommentResult();
+        return new AddCommentResult();
     }
 }

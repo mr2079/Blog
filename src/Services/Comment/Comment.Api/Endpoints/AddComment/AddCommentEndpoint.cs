@@ -3,30 +3,30 @@ using Carter;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Comment.Api.Endpoints.CreateComment;
+namespace Comment.Api.Endpoints.AddComment;
 
-public record CreateCommentRequest(
+public record AddCommentRequest(
     object UserId,
     object ArticleId,
     string Text);
 
-public record CreateCommentResponse();
+public record AddCommentResponse();
 
-public class CreateCommentEndpoint() : CarterModule("api/comment")
+public class EditCommentEndpoint() : CarterModule("api/comment")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("create", async Task<IResult> (
-            [FromBody] CreateCommentRequest request,
+        app.MapPost("add", async Task<IResult> (
+            [FromBody] AddCommentRequest request,
             IMapper mapper,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
-            var command = mapper.Map<CreateCommentCommand>(request);
+            var command = mapper.Map<AddCommentCommand>(request);
 
             var result = await sender.Send(command, cancellationToken);
 
-            var response = mapper.Map<CreateCommentResponse>(result);
+            var response = mapper.Map<AddCommentResponse>(result);
 
             return Results.Ok(response);
         });

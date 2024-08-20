@@ -37,12 +37,12 @@ public class GetCommentEndpoint() : CarterModule("api/comment")
         });
 
         app.MapGet("/{id}", async Task<IResult> (
-            [FromRoute] ObjectId id,
+            [FromRoute] string id,
             IMapper mapper,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
-            var result = await sender.Send(new GetCommentQuery(id), cancellationToken);
+            var result = await sender.Send(new GetCommentQuery(ObjectId.Parse(id)), cancellationToken);
 
             var response = mapper.Map<GetCommentResponse>(result);
 
