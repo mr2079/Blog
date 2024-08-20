@@ -3,7 +3,7 @@ using BuildingBlocks.CQRS;
 using Comment.Api.Persistence.Contracts;
 using MongoDB.Bson;
 
-namespace Comment.Api.Endpoints.GetComment;
+namespace Comment.Api.Features.Comments.GetComment;
 
 public record GetCommentQuery(
     ObjectId Id)

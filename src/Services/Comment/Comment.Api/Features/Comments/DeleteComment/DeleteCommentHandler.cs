@@ -2,9 +2,9 @@
 using Comment.Api.Persistence.Contracts;
 using MongoDB.Bson;
 
-namespace Comment.Api.Endpoints.DeleteComment;
+namespace Comment.Api.Features.Comments.DeleteComment;
 
-public record DeleteCommentCommand(ObjectId Id) 
+public record DeleteCommentCommand(ObjectId Id)
     : ICommand<DeleteCommentResult>;
 
 public record DeleteCommentResult();

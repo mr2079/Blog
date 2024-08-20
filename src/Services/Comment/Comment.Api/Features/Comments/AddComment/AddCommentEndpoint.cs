@@ -3,7 +3,7 @@ using Carter;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Comment.Api.Endpoints.AddComment;
+namespace Comment.Api.Features.Comments.AddComment;
 
 public record AddCommentRequest(
     object UserId,

@@ -2,7 +2,7 @@
 using Comment.Api.Persistence.Contracts;
 using MongoDB.Bson;
 
-namespace Comment.Api.Endpoints.EditComment;
+namespace Comment.Api.Features.Comments.EditComment;
 
 public record EditCommentCommand(
     ObjectId Id,

@@ -4,7 +4,7 @@ using BuildingBlocks.CQRS;
 using Comment.Api.Persistence.Contracts;
 using CommentEntity = Comment.Api.Entities.Comment;
 
-namespace Comment.Api.Endpoints.GetComment;
+namespace Comment.Api.Features.Comments.GetComment;
 
 public record GetCommentListQuery(
     object? UserId = null,
