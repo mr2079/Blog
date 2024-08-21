@@ -1,5 +1,4 @@
-﻿using Article.Domain.Articles;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Article.Infrastructure.Data.Configurations;

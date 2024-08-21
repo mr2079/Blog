@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Article.Infrastructure.Repositories;
 
-public abstract class Repository<TEntity>(
+public class Repository<TEntity>(
     ArticleDbContext context)
     : IRepository<TEntity>
     where TEntity : Entity

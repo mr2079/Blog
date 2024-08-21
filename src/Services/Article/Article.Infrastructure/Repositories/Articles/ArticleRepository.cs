@@ -10,7 +10,7 @@ public class ArticleRepository(
     ISqlConnectionFactory sqlConnectionFactory)
     : Repository<ArticleEntity>(context), IArticleRepository
 {
-    public async Task<IEnumerable<ArticleEntity>> GetArticlesByCategoryId(
+    public async Task<IEnumerable<ArticleEntity>> GetArticlesByCategoryIdAsync(
         Guid categoryId,
         int offset = 0,
         int limit = 10)
@@ -38,7 +38,7 @@ public class ArticleRepository(
         return articles;
     }
 
-    public async Task<IEnumerable<ArticleEntity>> GetArticlesByAuthorId(
+    public async Task<IEnumerable<ArticleEntity>> GetArticlesByAuthorIdAsync(
         string authorId,
         int offset = 0,
         int limit = 10)
@@ -66,7 +66,7 @@ public class ArticleRepository(
         return articles;
     }
 
-    public async Task<ArticleEntity?> GetArticleById(Guid id)
+    public async Task<ArticleEntity?> GetArticleByIdAsync(Guid id)
     {
         using var connection = sqlConnectionFactory.CreateConnection();
 
