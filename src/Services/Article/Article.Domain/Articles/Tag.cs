@@ -7,9 +7,12 @@ public record Tag
     public Tag(IEnumerable<string> tags) 
         => Value = string.Join(Separator, tags);
 
-    public static IEnumerable<string> FromString(string tags)
+    public Tag(string tags)
+        => Value = tags;
+
+    public IEnumerable<string> FromString()
     {
-        return tags.Split(Separator).AsEnumerable();
+        return Value.Split(Separator).AsEnumerable();
     }
 
     public string Value { get; set; }
