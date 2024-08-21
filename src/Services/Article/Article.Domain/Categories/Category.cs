@@ -1,8 +1,9 @@
 ﻿using Article.Domain.Abstractions;
+using ArticleEntity = Article.Domain.Articles.Article;
 
 namespace Article.Domain.Categories;
 
-public sealed class Category : Entity
+public class Category : Entity
 {
     private Category(
         Guid id,
@@ -12,6 +13,8 @@ public sealed class Category : Entity
     }
 
     public string Title { get; private set; }
+
+    public virtual ICollection<ArticleEntity>? Articles { get; set; }
 
     public static Category Create(
         string title)
