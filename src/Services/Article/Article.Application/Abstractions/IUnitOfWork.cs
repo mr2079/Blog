@@ -1,4 +1,4 @@
-﻿namespace Article.Domain.Abstractions;
+﻿namespace Article.Application.Abstractions;
 
 public interface IUnitOfWork
 {

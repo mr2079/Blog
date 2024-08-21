@@ -1,9 +1,8 @@
-﻿using System.Data;
-using Article.Infrastructure.Data.Context;
+﻿using Article.Application.Abstractions;
+using Article.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
 
 namespace Article.Infrastructure;
 
@@ -22,8 +21,8 @@ public static class DependencyInjection
                 .UseSnakeCaseNamingConvention();
         });
 
-        services.AddScoped<IDbConnection>(_ =>
-            new NpgsqlConnection(connectionString));
+        services.AddSingleton<ISqlConnectionFactory>(_ => 
+            new SqlConnectionFactory(connectionString));
 
         return services;
     }

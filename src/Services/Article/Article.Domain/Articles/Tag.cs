@@ -10,10 +10,8 @@ public record Tag
     public Tag(string tags)
         => Value = tags;
 
-    public IEnumerable<string> FromString()
-    {
-        return Value.Split(Separator).AsEnumerable();
-    }
+    public IEnumerable<string> FromString() 
+        => Value.Split(Separator).AsEnumerable();
 
     public string Value { get; set; }
 }

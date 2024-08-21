@@ -1,14 +1,13 @@
-﻿using Article.Domain.Abstractions;
-using Article.Domain.Categories;
+﻿using Article.Application.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Article.Infrastructure.Data.Context;
+namespace Article.Infrastructure.Data;
 
 public sealed class ArticleDbContext(
     DbContextOptions<ArticleDbContext> options) : DbContext(options), IUnitOfWork
 {
     public DbSet<ArticleEntity> Articles { get; set; }
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<CategoryEntity> Categories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
