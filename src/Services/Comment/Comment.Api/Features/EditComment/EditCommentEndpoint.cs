@@ -4,24 +4,27 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
-namespace Comment.Api.Features.Comments.DeleteComment;
+namespace Comment.Api.Features.EditComment;
 
-public record DeleteCommentResponse();
+public record EditCommentRequest(string Text);
+
+public record EditCommentResponse();
 
 public class DeleteCommentEndpoint() : CarterModule("api/comment")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("delete/{id}", async Task<IResult> (
+        app.MapPut("edit/{id}", async Task<IResult> (
             [FromRoute] string id,
+            [FromBody] EditCommentRequest request,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
-            var command = new DeleteCommentCommand(ObjectId.Parse(id));
+            var command = new EditCommentCommand(ObjectId.Parse(id), request.Text);
 
             var result = await sender.Send(command, cancellationToken);
 
-            var response = result.Adapt<DeleteCommentResponse>();
+            var response = result.Adapt<EditCommentResponse>();
 
             return Results.Ok(response);
         });

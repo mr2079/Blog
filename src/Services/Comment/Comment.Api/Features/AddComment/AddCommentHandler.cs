@@ -3,7 +3,7 @@ using Comment.Api.Persistence.Contracts;
 using MongoDB.Bson;
 using CommandEntity = Comment.Api.Entities.Comment;
 
-namespace Comment.Api.Features.Comments.AddComment;
+namespace Comment.Api.Features.AddComment;
 
 public record AddCommentCommand(
     object UserId,

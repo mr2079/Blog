@@ -4,7 +4,7 @@ using Comment.Api.Persistence.Contracts;
 using Mapster;
 using CommentEntity = Comment.Api.Entities.Comment;
 
-namespace Comment.Api.Features.Comments.GetComment;
+namespace Comment.Api.Features.GetComment;
 
 public record GetCommentListQuery(
     object? UserId = null,

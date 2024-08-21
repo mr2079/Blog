@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
-namespace Comment.Api.Features.Comments.GetComment;
+namespace Comment.Api.Features.GetComment;
 
 public record GetCommentListResponse();
 

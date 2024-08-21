@@ -3,7 +3,7 @@ using Comment.Api.Persistence.Contracts;
 using Mapster;
 using MongoDB.Bson;
 
-namespace Comment.Api.Features.Comments.GetComment;
+namespace Comment.Api.Features.GetComment;
 
 public record GetCommentQuery(
     ObjectId Id)

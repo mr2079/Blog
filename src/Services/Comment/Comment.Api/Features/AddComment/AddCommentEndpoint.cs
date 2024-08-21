@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
-namespace Comment.Api.Features.Comments.AddComment;
+namespace Comment.Api.Features.AddComment;
 
 public record AddCommentRequest(
     object UserId,
