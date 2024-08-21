@@ -2,7 +2,6 @@
 using Comment.Api.Persistence.Contracts;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using CommentEntity = Comment.Api.Entities.Comment;
 
 namespace Comment.Api.Persistence.Repositories;
 

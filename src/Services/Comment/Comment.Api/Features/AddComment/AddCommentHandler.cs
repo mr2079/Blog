@@ -1,7 +1,6 @@
 ﻿using BuildingBlocks.CQRS;
 using Comment.Api.Persistence.Contracts;
 using MongoDB.Bson;
-using CommandEntity = Comment.Api.Entities.Comment;
 
 namespace Comment.Api.Features.AddComment;
 
@@ -22,7 +21,7 @@ public class EditCommentHandler(
         AddCommentCommand command,
         CancellationToken cancellationToken)
     {
-        var comment = CommandEntity.Create(
+        var comment = CommentEntity.Create(
             command.UserId,
             command.ArticleId,
             command.Text,

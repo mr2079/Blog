@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using MongoDB.Bson;
-using CommentEntity = Comment.Api.Entities.Comment;
 
 namespace Comment.Api.Persistence.Contracts;
 

@@ -2,7 +2,6 @@
 using BuildingBlocks.CQRS;
 using Comment.Api.Persistence.Contracts;
 using Mapster;
-using CommentEntity = Comment.Api.Entities.Comment;
 
 namespace Comment.Api.Features.GetComment;
 

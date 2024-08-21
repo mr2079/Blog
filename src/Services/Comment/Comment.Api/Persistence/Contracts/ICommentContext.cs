@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using CommentEntity = Comment.Api.Entities.Comment;
 
 namespace Comment.Api.Persistence.Contracts;
 
