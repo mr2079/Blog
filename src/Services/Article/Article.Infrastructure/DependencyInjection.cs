@@ -1,10 +1,6 @@
 ﻿using Article.Application.Abstractions;
-using Article.Application.Abstractions.Articles;
-using Article.Application.Abstractions.Categories;
 using Article.Infrastructure.Data;
 using Article.Infrastructure.Repositories;
-using Article.Infrastructure.Repositories.Articles;
-using Article.Infrastructure.Repositories.Categories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

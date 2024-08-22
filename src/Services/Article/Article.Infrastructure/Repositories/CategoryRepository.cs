@@ -1,9 +1,8 @@
 ﻿using Article.Application.Abstractions;
-using Article.Application.Abstractions.Categories;
 using Article.Infrastructure.Data;
 using Dapper;
 
-namespace Article.Infrastructure.Repositories.Categories;
+namespace Article.Infrastructure.Repositories;
 
 public class CategoryRepository(
     ArticleDbContext context,

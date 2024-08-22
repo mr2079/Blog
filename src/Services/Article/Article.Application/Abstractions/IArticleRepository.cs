@@ -1,4 +1,4 @@
-﻿namespace Article.Application.Abstractions.Articles;
+﻿namespace Article.Application.Abstractions;
 
 public interface IArticleRepository
     : IRepository<ArticleEntity>

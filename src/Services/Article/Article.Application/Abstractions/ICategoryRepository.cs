@@ -1,4 +1,4 @@
-﻿namespace Article.Application.Abstractions.Categories;
+﻿namespace Article.Application.Abstractions;
 
 public interface ICategoryRepository
     : IRepository<CategoryEntity>

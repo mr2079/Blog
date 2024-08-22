@@ -1,9 +1,8 @@
 ﻿using Article.Application.Abstractions;
-using Article.Application.Abstractions.Articles;
 using Article.Infrastructure.Data;
 using Dapper;
 
-namespace Article.Infrastructure.Repositories.Articles;
+namespace Article.Infrastructure.Repositories;
 
 public class ArticleRepository(
     ArticleDbContext context,
