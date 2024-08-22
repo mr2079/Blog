@@ -29,7 +29,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{CD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{CB31B59B-07D3-49ED-9DC5-3D032BC20741}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "src\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{ED64D9D5-8F36-4E5A-9F15-C1CB1E080425}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlocks", "src\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{ED64D9D5-8F36-4E5A-9F15-C1CB1E080425}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Article.Application.UnitTests", "test\Article.Application.UnitTests\Article.Application.UnitTests.csproj", "{7D6B54DE-0916-4BFA-B5DE-E490E506D104}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{ED64D9D5-8F36-4E5A-9F15-C1CB1E080425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED64D9D5-8F36-4E5A-9F15-C1CB1E080425}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED64D9D5-8F36-4E5A-9F15-C1CB1E080425}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D6B54DE-0916-4BFA-B5DE-E490E506D104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D6B54DE-0916-4BFA-B5DE-E490E506D104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D6B54DE-0916-4BFA-B5DE-E490E506D104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D6B54DE-0916-4BFA-B5DE-E490E506D104}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{CD6C7863-6382-4FD9-A4EB-0C960E65939B} = {E9F2466C-020B-4644-9DF3-CD2F9FEC920B}
 		{CB31B59B-07D3-49ED-9DC5-3D032BC20741} = {E9F2466C-020B-4644-9DF3-CD2F9FEC920B}
 		{ED64D9D5-8F36-4E5A-9F15-C1CB1E080425} = {CB31B59B-07D3-49ED-9DC5-3D032BC20741}
+		{7D6B54DE-0916-4BFA-B5DE-E490E506D104} = {9ACB9B0E-1268-47FA-AB24-CC9A37AC3C72}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27E9CEC8-449B-4CFE-AB85-B21D5A39D00F}
