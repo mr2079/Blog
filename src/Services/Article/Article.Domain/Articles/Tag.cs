@@ -4,8 +4,13 @@ public record Tag
 {
     public static readonly char Separator = ',';
 
-    public Tag(IEnumerable<string> tags) 
-        => Value = string.Join(Separator, tags);
+    public Tag(IEnumerable<string>? tags)
+    {
+        if (tags != null)
+            Value = string.Join(Separator, tags);
+
+        Value = string.Empty;
+    }
 
     public Tag(string tags)
         => Value = tags;
@@ -13,5 +18,5 @@ public record Tag
     public IEnumerable<string> FromString() 
         => Value.Split(Separator).AsEnumerable();
 
-    public string Value { get; set; }
+    public string Value { get; }
 }

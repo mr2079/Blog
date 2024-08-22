@@ -10,18 +10,17 @@ public class Repository<TEntity>(
     : IRepository<TEntity>
     where TEntity : Entity
 {
-    public Guid CreateAsync(TEntity entity)
+    public void Create(TEntity entity)
     {
         context.Entry(entity).State = EntityState.Added;
-        return entity.Id;
     }
 
-    public void UpdateAsync(TEntity entity)
+    public void Update(TEntity entity)
     {
         context.Entry(entity).State = EntityState.Modified;
     }
 
-    public void DeleteAsync(TEntity entity)
+    public void Delete(TEntity entity)
     {
         entity.Delete(true);
         context.Entry(entity).State = EntityState.Modified;

@@ -7,12 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
     <ProjectReference Include="..\Article.Domain\Article.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Articles\" />
     <Folder Include="Categories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
   </ItemGroup>
 
 </Project>
