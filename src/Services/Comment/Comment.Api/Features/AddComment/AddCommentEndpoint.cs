@@ -1,4 +1,5 @@
-﻿using Carter;
+﻿using BuildingBlocks.Results;
+using Carter;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,7 @@ public record AddCommentRequest(
     string Text,
     ObjectId? ParentId = null);
 
-public record AddCommentResponse();
-
-public class EditCommentEndpoint() : CarterModule("api/comment")
+public class AddCommentEndpoint() : CarterModule("api/comment")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -25,9 +24,9 @@ public class EditCommentEndpoint() : CarterModule("api/comment")
         {
             var command = request.Adapt<AddCommentCommand>();
 
-            var result = await sender.Send(command, cancellationToken);
+            var result =  await sender.Send(command, cancellationToken);
 
-            var response = result.Adapt<AddCommentResponse>();
+            var response = result.ToResponse();
 
             return Results.Ok(response);
         });

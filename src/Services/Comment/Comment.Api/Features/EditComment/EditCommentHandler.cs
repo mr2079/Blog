@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.CQRS;
+﻿using Comment.Api.Errors;
 using Comment.Api.Persistence.Contracts;
 using MongoDB.Bson;
 
@@ -6,26 +6,23 @@ namespace Comment.Api.Features.EditComment;
 
 public record EditCommentCommand(
     ObjectId Id,
-    string Text) : ICommand<EditCommentResult>;
-
-public record EditCommentResult();
+    string Text) : ICommand<Result>;
 
 public class DeleteCommentHandler(
     ICommentRepository commentRepository)
-    : ICommandHandler<EditCommentCommand, EditCommentResult>
+    : ICommandHandler<EditCommentCommand, Result>
 {
-    public async Task<EditCommentResult> Handle(
+    public async Task<Result> Handle(
         EditCommentCommand command,
         CancellationToken cancellationToken)
     {
         var comment = await commentRepository.GetAsync(
             c => c.Id == command.Id);
 
-        comment.Update(comment.Text);
+        comment.Value.Update(comment.Value.Text);
 
-        await commentRepository.UpdateAsync(comment);
+        var result = await commentRepository.UpdateAsync(comment.Value);
 
-        // TODO
-        return new EditCommentResult();
+        return result;
     }
 }

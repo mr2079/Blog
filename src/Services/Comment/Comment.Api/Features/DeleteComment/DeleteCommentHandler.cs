@@ -1,25 +1,25 @@
-﻿using BuildingBlocks.CQRS;
+﻿using Comment.Api.Errors;
 using Comment.Api.Persistence.Contracts;
+using MediatR;
 using MongoDB.Bson;
 
 namespace Comment.Api.Features.DeleteComment;
 
 public record DeleteCommentCommand(ObjectId Id)
-    : ICommand<DeleteCommentResult>;
-
-public record DeleteCommentResult();
+    : ICommand<Result>;
 
 public class DeleteCommentHandler(
     ICommentRepository commentRepository)
-    : ICommandHandler<DeleteCommentCommand, DeleteCommentResult>
+    : ICommandHandler<DeleteCommentCommand, Result>
 {
-    public async Task<DeleteCommentResult> Handle(
+    public async Task<Result> Handle(
         DeleteCommentCommand command,
         CancellationToken cancellationToken)
     {
-        await commentRepository.DeleteAsync(command.Id);
+        var result = await commentRepository.DeleteAsync(command.Id);
 
-        // TODO
-        return new DeleteCommentResult();
+        return result
+            ? Result.Success()
+            : Result.Failure(CommentErrors.NotDeleted);
     }
 }

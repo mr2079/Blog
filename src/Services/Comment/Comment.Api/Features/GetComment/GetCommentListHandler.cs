@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using BuildingBlocks.CQRS;
 using Comment.Api.Persistence.Contracts;
 using Mapster;
 
@@ -10,15 +9,13 @@ public record GetCommentListQuery(
     object? ArticleId = null,
     int? Skip = 0,
     int? Limit = 10)
-    : IQuery<GetCommentListResult>;
-
-public record GetCommentListResult();
+    : IQuery<Result<IReadOnlyList<CommentEntity>>>;
 
 public class GetCommentListHandler(
     ICommentRepository commentRepository)
-    : IQueryHandler<GetCommentListQuery, GetCommentListResult>
+    : IQueryHandler<GetCommentListQuery, Result<IReadOnlyList<CommentEntity>>>
 {
-    public async Task<GetCommentListResult> Handle(
+    public async Task<Result<IReadOnlyList<CommentEntity>>> Handle(
         GetCommentListQuery query,
         CancellationToken cancellationToken)
     {
@@ -44,9 +41,7 @@ public class GetCommentListHandler(
             predicate = Expression.Lambda<Func<CommentEntity, bool>>(and, predicate!.Parameters.Single());
         }
 
-        var list = await commentRepository.GetListAsync(predicate, query.Skip, query.Limit);
-
-        var result = list.Adapt<GetCommentListResult>();
+        var result = await commentRepository.GetListAsync(predicate, query.Skip, query.Limit);
 
         return result;
     }

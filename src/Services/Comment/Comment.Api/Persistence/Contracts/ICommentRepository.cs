@@ -5,19 +5,19 @@ namespace Comment.Api.Persistence.Contracts;
 
 public interface ICommentRepository
 {
-    Task<IReadOnlyList<CommentEntity>> GetListAsync(
+    Task<Result<IReadOnlyList<CommentEntity>>> GetListAsync(
         Expression<Func<CommentEntity, bool>>? predicate = null,
         int? skip = null,
         int? limit = null);
 
-    Task<CommentEntity> GetAsync(
+    Task<Result<CommentEntity>> GetAsync(
         Expression<Func<CommentEntity, bool>> predicate);
 
     Task CreateAsync(CommentEntity comment);
 
-    Task<bool> UpdateAsync(CommentEntity comment);
+    Task<Result> UpdateAsync(CommentEntity comment);
 
-    Task<bool> DeleteAsync(CommentEntity comment);
+    Task<Result> DeleteAsync(CommentEntity comment);
 
-    Task<bool> DeleteAsync(ObjectId id);
+    Task<Result> DeleteAsync(ObjectId id);
 }

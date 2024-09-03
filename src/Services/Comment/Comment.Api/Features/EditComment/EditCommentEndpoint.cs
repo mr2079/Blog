@@ -8,9 +8,7 @@ namespace Comment.Api.Features.EditComment;
 
 public record EditCommentRequest(string Text);
 
-public record EditCommentResponse();
-
-public class DeleteCommentEndpoint() : CarterModule("api/comment")
+public class EditCommentEndpoint() : CarterModule("api/comment")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -24,7 +22,7 @@ public class DeleteCommentEndpoint() : CarterModule("api/comment")
 
             var result = await sender.Send(command, cancellationToken);
 
-            var response = result.Adapt<EditCommentResponse>();
+            var response = result.ToResponse();
 
             return Results.Ok(response);
         });

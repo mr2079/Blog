@@ -30,7 +30,7 @@ public class GetCommentEndpoint() : CarterModule("api/comment")
 
             var result = await sender.Send(query, cancellationToken);
 
-            var response = result.Adapt<GetCommentListResponse>();
+            var response = result.ToResponse();
 
             return Results.Ok(response);
         });
@@ -42,7 +42,7 @@ public class GetCommentEndpoint() : CarterModule("api/comment")
         {
             var result = await sender.Send(new GetCommentQuery(ObjectId.Parse(id)), cancellationToken);
 
-            var response = result.Adapt<GetCommentResponse>();
+            var response = result.ToResponse();
 
             return Results.Ok(response);
         });

@@ -1,5 +1,4 @@
-﻿using BuildingBlocks.CQRS;
-using Comment.Api.Persistence.Contracts;
+﻿using Comment.Api.Persistence.Contracts;
 using Mapster;
 using MongoDB.Bson;
 
@@ -7,23 +6,21 @@ namespace Comment.Api.Features.GetComment;
 
 public record GetCommentQuery(
     ObjectId Id)
-    : IQuery<GetCommentResult>;
-
-public record GetCommentResult();
+    : IQuery<Result<CommentEntity>>;
 
 public class GetCommentHandler(
     ICommentRepository commentRepository)
-    : IQueryHandler<GetCommentQuery, GetCommentResult>
+    : IQueryHandler<GetCommentQuery, Result<CommentEntity>>
 {
-    public async Task<GetCommentResult> Handle(
+    public async Task<Result<CommentEntity>> Handle(
         GetCommentQuery query,
         CancellationToken cancellationToken)
     {
         var comment = await commentRepository.GetAsync(
             c => c.Id == query.Id);
 
-        var result = comment.Adapt<GetCommentResult>();
-
-        return result;
+        return comment.IsSuccess
+            ? Result.Success(comment.Value)
+            : Result.Failure<CommentEntity>(comment.Error);
     }
 }

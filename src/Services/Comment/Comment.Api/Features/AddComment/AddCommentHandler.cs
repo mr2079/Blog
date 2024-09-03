@@ -1,5 +1,4 @@
-﻿using BuildingBlocks.CQRS;
-using Comment.Api.Persistence.Contracts;
+﻿using Comment.Api.Persistence.Contracts;
 using MongoDB.Bson;
 
 namespace Comment.Api.Features.AddComment;
@@ -8,16 +7,17 @@ public record AddCommentCommand(
     object UserId,
     object ArticleId,
     string Text,
-    ObjectId? ParentId = null) : ICommand<AddCommentResult>;
+    ObjectId? ParentId = null) : ICommand<Result<AddCommentResult>>;
 
-// TODO: fix details of result
-public record AddCommentResult();
+public record AddCommentResult(
+    ObjectId Id,
+    ObjectId? ParentId = null);
 
-public class EditCommentHandler(
+public class AddCommentHandler(
     ICommentRepository commentRepository)
-    : ICommandHandler<AddCommentCommand, AddCommentResult>
+    : ICommandHandler<AddCommentCommand, Result<AddCommentResult>>
 {
-    public async Task<AddCommentResult> Handle(
+    public async Task<Result<AddCommentResult>> Handle(
         AddCommentCommand command,
         CancellationToken cancellationToken)
     {
@@ -27,20 +27,25 @@ public class EditCommentHandler(
             command.Text,
             command.ParentId);
 
-        if (command.ParentId == null) // Add new comment
+        if (command.ParentId == null)
         {
             await commentRepository.CreateAsync(comment);
-        }
-        else // Add new reply
-        {
-            var parent = await commentRepository.GetAsync(
-                c => c.Id == command.ParentId);
 
-            parent.AddReply(comment);
-
-            await commentRepository.UpdateAsync(parent);
+            return Result.Success(new AddCommentResult(comment.Id));
         }
 
-        return new AddCommentResult();
+        var parent = await commentRepository.GetAsync(
+            c => c.Id == command.ParentId);
+
+        if (parent.IsFailure)
+            return Result.Failure<AddCommentResult>(parent.Error);
+
+        parent.Value.AddReply(comment);
+
+        var result = await commentRepository.UpdateAsync(parent.Value);
+
+        return result.IsSuccess
+            ? Result.Success(new AddCommentResult(comment.Id, parent.Value.Id))
+            : Result.Failure<AddCommentResult>(result.Error);
     }
 }
