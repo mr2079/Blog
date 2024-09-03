@@ -1,5 +1,4 @@
-﻿using BuildingBlocks.Results;
-using Carter;
+﻿using Carter;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

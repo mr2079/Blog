@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using Comment.Api.Persistence.Contracts;
-using Mapster;
 
 namespace Comment.Api.Features.GetComment;
 

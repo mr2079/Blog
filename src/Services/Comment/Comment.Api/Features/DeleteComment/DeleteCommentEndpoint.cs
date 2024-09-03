@@ -1,12 +1,9 @@
 ﻿using Carter;
-using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
 namespace Comment.Api.Features.DeleteComment;
-
-public record DeleteCommentResponse();
 
 public class DeleteCommentEndpoint() : CarterModule("api/comment")
 {
@@ -21,7 +18,7 @@ public class DeleteCommentEndpoint() : CarterModule("api/comment")
 
             var result = await sender.Send(command, cancellationToken);
 
-            var response = result.Adapt<DeleteCommentResponse>();
+            var response = result.ToResponse();
 
             return Results.Ok(response);
         });

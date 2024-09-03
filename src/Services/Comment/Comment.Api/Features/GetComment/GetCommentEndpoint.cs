@@ -1,14 +1,9 @@
 ﻿using Carter;
-using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
 namespace Comment.Api.Features.GetComment;
-
-public record GetCommentListResponse();
-
-public record GetCommentResponse();
 
 public class GetCommentEndpoint() : CarterModule("api/comment")
 {

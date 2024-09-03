@@ -1,5 +1,4 @@
 ﻿using Comment.Api.Persistence.Contracts;
-using Mapster;
 using MongoDB.Bson;
 
 namespace Comment.Api.Features.GetComment;
