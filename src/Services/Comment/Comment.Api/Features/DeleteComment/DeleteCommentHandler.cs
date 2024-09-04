@@ -4,7 +4,7 @@ using MongoDB.Bson;
 
 namespace Comment.Api.Features.DeleteComment;
 
-public record DeleteCommentCommand(ObjectId Id)
+public record DeleteCommentCommand(Guid Id)
     : ICommand<Result>;
 
 public class DeleteCommentHandler(
@@ -17,7 +17,7 @@ public class DeleteCommentHandler(
     {
         var result = await commentRepository.DeleteAsync(command.Id);
 
-        return result
+        return result.IsSuccess
             ? Result.Success()
             : Result.Failure(CommentErrors.NotDeleted);
     }

@@ -1,9 +1,9 @@
 ﻿using BuildingBlocks.Http;
 using BuildingBlocks.Results;
 
-namespace BuildingBlocks;
+namespace BuildingBlocks.Extensions;
 
-public static class Extensions
+public static class ResultExtensions
 {
     public static Response ToResponse(this Result result)
         => new Response(result.IsSuccess, result.Error.Message);

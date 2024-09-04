@@ -4,7 +4,7 @@ using MongoDB.Bson;
 namespace Comment.Api.Features.EditComment;
 
 public record EditCommentCommand(
-    ObjectId Id,
+    Guid Id,
     string Text) : ICommand<Result>;
 
 public class DeleteCommentHandler(

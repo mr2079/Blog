@@ -1,15 +1,16 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Comment.Api.Entities;
 
 public sealed class Comment : Entity
 {
     private Comment(
-        ObjectId id,
+        Guid id,
         string userId,
         string articleId,
         string text,
-        ObjectId? parentId = null) : base(id)
+        Guid? parentId = null) : base(id)
     {
         UserId = userId;
         ArticleId = articleId;
@@ -17,20 +18,25 @@ public sealed class Comment : Entity
         ParentId = parentId;
     }
 
+    [BsonElement("user_id")]
     public string UserId { get; private set; }
+    [BsonElement("article_id")]
     public string ArticleId { get; private set; }
-    public ObjectId? ParentId { get; private set; }
+    [BsonElement("parent_id")]
+    public Guid? ParentId { get; private set; }
+    [BsonElement("text")]
     public string Text { get; private set; }
+    [BsonElement("replies")]
     public ICollection<Comment>? Replies { get; private set; }
 
     public static Comment Create(
         object userId,
         object articleId,
         string text,
-        ObjectId? parentId = null)
+        Guid? parentId = null)
     {
         return new Comment(
-            ObjectId.GenerateNewId(),
+            Guid.NewGuid(),
             userId.ToString()!,
             articleId.ToString()!,
             text,

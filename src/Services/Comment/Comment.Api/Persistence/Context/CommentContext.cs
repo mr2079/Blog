@@ -8,7 +8,7 @@ public class CommentContext : ICommentContext
     public CommentContext()
     {
         var client = new MongoClient("mongodb://localhost:27017");
-        var database = client.GetDatabase("comment_db");
+        var database = client.GetDatabase("comments_db");
 
         Comments = database.GetCollection<CommentEntity>("comments");
     }

@@ -1,4 +1,6 @@
 using Carter;
+using Comment.Api.Extensions;
+using Comment.Api.Middlewares;
 using Comment.Api.Persistence.Context;
 using Comment.Api.Persistence.Contracts;
 using Comment.Api.Persistence.Repositories;
@@ -17,6 +19,8 @@ builder.Services.AddSingleton<ICommentContext, CommentContext>();
 
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
+builder.Services.AddScoped<ExceptionHandlingMiddleware>();
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -30,6 +34,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
 
     app.UseSwaggerUI();
+}
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseApplicationExceptionHandler();
 }
 
 app.UseAuthorization();

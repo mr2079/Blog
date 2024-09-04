@@ -1,11 +1,12 @@
-﻿using Carter;
+﻿using BuildingBlocks.Extensions;
+using Carter;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
 namespace Comment.Api.Features.GetComment;
 
-public class GetCommentEndpoint() : CarterModule("api/comment")
+public class GetCommentEndpoint() : CarterModule("api/comments")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -30,12 +31,12 @@ public class GetCommentEndpoint() : CarterModule("api/comment")
             return Results.Ok(response);
         });
 
-        app.MapGet("/{id}", async Task<IResult> (
-            [FromRoute] string id,
+        app.MapGet("/{id:guid}", async Task<IResult> (
+            [FromRoute] Guid id,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
-            var result = await sender.Send(new GetCommentQuery(ObjectId.Parse(id)), cancellationToken);
+            var result = await sender.Send(new GetCommentQuery(id), cancellationToken);
 
             var response = result.ToResponse();
 

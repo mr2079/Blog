@@ -7,11 +7,11 @@ public record AddCommentCommand(
     object UserId,
     object ArticleId,
     string Text,
-    ObjectId? ParentId = null) : ICommand<Result<AddCommentResult>>;
+    Guid? ParentId = null) : ICommand<Result<AddCommentResult>>;
 
 public record AddCommentResult(
-    ObjectId Id,
-    ObjectId? ParentId = null);
+    Guid Id,
+    Guid? ParentId = null);
 
 public class AddCommentHandler(
     ICommentRepository commentRepository)

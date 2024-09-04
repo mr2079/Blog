@@ -19,5 +19,5 @@ public interface ICommentRepository
 
     Task<Result> DeleteAsync(CommentEntity comment);
 
-    Task<Result> DeleteAsync(ObjectId id);
+    Task<Result> DeleteAsync(Guid id);
 }

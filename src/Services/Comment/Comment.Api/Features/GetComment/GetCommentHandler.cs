@@ -4,7 +4,7 @@ using MongoDB.Bson;
 namespace Comment.Api.Features.GetComment;
 
 public record GetCommentQuery(
-    ObjectId Id)
+    Guid Id)
     : IQuery<Result<CommentEntity>>;
 
 public class GetCommentHandler(

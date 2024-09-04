@@ -91,9 +91,9 @@ public class CommentRepository(
             : Result.Failure(CommentErrors.NotDeleted);
     }
 
-    public async Task<Result> DeleteAsync(ObjectId id)
+    public async Task<Result> DeleteAsync(Guid id)
     {
-        ObjectIdArgumentException.ThrowIfNull(id);
+        GuidArgumentException.ThrowIfNull(id);
 
         var comment = await GetAsync(c => c.Id == id);
 

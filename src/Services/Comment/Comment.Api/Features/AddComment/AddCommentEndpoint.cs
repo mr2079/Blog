@@ -1,22 +1,25 @@
-﻿using Carter;
+﻿using BuildingBlocks.Extensions;
+using Carter;
+using Comment.Api.Persistence.Converters;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using Newtonsoft.Json;
 
 namespace Comment.Api.Features.AddComment;
 
 public record AddCommentRequest(
-    object UserId,
-    object ArticleId,
+    string UserId,
+    string ArticleId,
     string Text,
-    ObjectId? ParentId = null);
+    Guid? ParentId = null);
 
-public class AddCommentEndpoint() : CarterModule("api/comment")
+public class AddCommentEndpoint() : CarterModule("api/comments")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("add", async Task<IResult> (
+        app.MapPost("/", async Task<IResult> (
             [FromBody] AddCommentRequest request,
             ISender sender,
             CancellationToken cancellationToken) =>

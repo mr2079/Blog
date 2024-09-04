@@ -1,20 +1,21 @@
-﻿using Carter;
+﻿using BuildingBlocks.Extensions;
+using Carter;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
 namespace Comment.Api.Features.DeleteComment;
 
-public class DeleteCommentEndpoint() : CarterModule("api/comment")
+public class DeleteCommentEndpoint() : CarterModule("api/comments")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("delete/{id}", async Task<IResult> (
-            [FromRoute] string id,
+        app.MapDelete("{id:guid}", async Task<IResult> (
+            [FromRoute] Guid id,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
-            var command = new DeleteCommentCommand(ObjectId.Parse(id));
+            var command = new DeleteCommentCommand(id);
 
             var result = await sender.Send(command, cancellationToken);
 
