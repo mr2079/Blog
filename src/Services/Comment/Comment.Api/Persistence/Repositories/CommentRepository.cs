@@ -58,12 +58,16 @@ public class CommentRepository(
     {
         CommentArgumentNullException.ThrowIfNull(comment);
 
+        comment.CreateAt();
+
         await context.Comments.InsertOneAsync(comment);
     }
 
     public async Task<Result> UpdateAsync(CommentEntity comment)
     {
         CommentArgumentNullException.ThrowIfNull(comment);
+
+        comment.UpdateAt();
 
         var result = await context.Comments
             .ReplaceOneAsync(c => c.Id == comment.Id, comment);
@@ -80,6 +84,7 @@ public class CommentRepository(
         CommentArgumentNullException.ThrowIfNull(comment);
 
         comment.Delete(true);
+        comment.UpdateAt();
 
         var result = await context.Comments
             .ReplaceOneAsync(c => c.Id == comment.Id, comment);

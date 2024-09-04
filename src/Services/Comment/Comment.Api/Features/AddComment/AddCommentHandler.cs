@@ -4,8 +4,8 @@ using MongoDB.Bson;
 namespace Comment.Api.Features.AddComment;
 
 public record AddCommentCommand(
-    object UserId,
-    object ArticleId,
+    string UserId,
+    string ArticleId,
     string Text,
     Guid? ParentId = null) : ICommand<Result<AddCommentResult>>;
 
