@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using MongoDB.Bson;
 
 namespace Comment.Api.Persistence.Contracts;
 

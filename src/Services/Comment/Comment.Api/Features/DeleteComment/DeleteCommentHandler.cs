@@ -1,6 +1,5 @@
 ﻿using Comment.Api.Errors;
 using Comment.Api.Persistence.Contracts;
-using MongoDB.Bson;
 
 namespace Comment.Api.Features.DeleteComment;
 

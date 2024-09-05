@@ -2,7 +2,6 @@
 using Comment.Api.Errors;
 using Comment.Api.Exceptions;
 using Comment.Api.Persistence.Contracts;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Comment.Api.Persistence.Repositories;
@@ -17,11 +16,7 @@ public class CommentRepository(
     {
         Expression<Func<CommentEntity, bool>> where = c => !c.IsDeleted;
 
-        if (predicate != null)
-        {
-            var and = Expression.AndAlso(where, predicate);
-            where = Expression.Lambda<Func<CommentEntity, bool>>(and, where.Parameters.Single());
-        }
+        if (predicate != null) where = where.And(predicate);
 
         var filter = Builders<CommentEntity>.Filter.Where(where);
 
@@ -42,8 +37,8 @@ public class CommentRepository(
         PredicateArgumentNullException.ThrowIfNull(predicate);
 
         Expression<Func<CommentEntity, bool>> where = c => !c.IsDeleted;
-        var and = Expression.AndAlso(where, predicate);
-        where = Expression.Lambda<Func<CommentEntity, bool>>(and, where.Parameters.Single());
+
+        where = where.And(predicate);
 
         var filter = Builders<CommentEntity>.Filter.Where(where);
 

@@ -2,7 +2,6 @@
 using Carter;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 
 namespace Comment.Api.Features.GetComment;
 

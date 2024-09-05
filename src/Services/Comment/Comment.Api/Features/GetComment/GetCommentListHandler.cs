@@ -4,8 +4,8 @@ using Comment.Api.Persistence.Contracts;
 namespace Comment.Api.Features.GetComment;
 
 public record GetCommentListQuery(
-    object? UserId = null,
-    object? ArticleId = null,
+    string? UserId = null,
+    string? ArticleId = null,
     int? Skip = 0,
     int? Limit = 10)
     : IQuery<Result<IReadOnlyList<CommentEntity>>>;
@@ -22,22 +22,12 @@ public class GetCommentListHandler(
 
         if (query.UserId != null)
         {
-            Expression<Func<CommentEntity, bool>> condition =
-                c => c.UserId == query.UserId.ToString();
-
-            var and = Expression.AndAlso(predicate!, condition);
-
-            predicate = Expression.Lambda<Func<CommentEntity, bool>>(and, predicate!.Parameters.Single());
+            predicate = predicate.And(c => c.UserId == query.UserId);
         }
 
         if (query.ArticleId != null)
         {
-            Expression<Func<CommentEntity, bool>> condition =
-                c => c.ArticleId == query.ArticleId.ToString();
-
-            var and = Expression.AndAlso(predicate!, condition);
-
-            predicate = Expression.Lambda<Func<CommentEntity, bool>>(and, predicate!.Parameters.Single());
+            predicate = predicate.And(c => c.ArticleId == query.ArticleId);
         }
 
         var result = await commentRepository.GetListAsync(predicate, query.Skip, query.Limit);

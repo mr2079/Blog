@@ -12,8 +12,8 @@ public record Response(
 
 public record Response<TData>(
     bool Success,
-    string? Message,
-    TData? Data) : Response(Success, Message)
+    string? Message = null,
+    TData? Data = default) : Response(Success, Message)
 {
     public static implicit operator Response<TData>(Result<TData> result) 
         => new(

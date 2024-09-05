@@ -1,11 +1,8 @@
 ﻿using BuildingBlocks.Extensions;
 using Carter;
-using Comment.Api.Persistence.Converters;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using Newtonsoft.Json;
 
 namespace Comment.Api.Features.AddComment;
 

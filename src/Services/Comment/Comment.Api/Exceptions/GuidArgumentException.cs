@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-
-namespace Comment.Api.Exceptions;
+﻿namespace Comment.Api.Exceptions;
 
 public class GuidArgumentException()
     : ArgumentNullException($"ObjectId.NullOrEmpty", "Entered 'Guid' is null or empty!")
