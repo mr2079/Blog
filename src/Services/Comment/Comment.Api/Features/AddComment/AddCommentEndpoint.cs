@@ -1,5 +1,7 @@
-﻿using BuildingBlocks.Extensions;
+﻿using Asp.Versioning;
+using BuildingBlocks.Extensions;
 using Carter;
+using Comment.Api.Extensions;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +14,7 @@ public record AddCommentRequest(
     string Text,
     Guid? ParentId = null);
 
-public class AddCommentEndpoint() : CarterModule("api/comments")
+public class AddCommentEndpoint() : CarterModule("api/v{version:apiVersion}/comments")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -28,6 +30,8 @@ public class AddCommentEndpoint() : CarterModule("api/comments")
             var response = result.ToResponse();
 
             return Results.Ok(response);
-        });
+        })
+        .WithApiVersionSet(ApiVersioning.ApiVersionSet!)
+        .MapToApiVersion(1);
     }
 }

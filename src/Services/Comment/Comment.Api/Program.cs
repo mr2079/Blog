@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Carter;
 using Comment.Api.Extensions;
 using Comment.Api.Middlewares;
@@ -29,6 +30,21 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1);
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(
+        new UrlSegmentApiVersionReader(),
+        new HeaderApiVersionReader("x-version"),
+        new QueryStringApiVersionReader("v"));
+})
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'V";
+    options.SubstituteApiVersionInUrl = true;
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -44,6 +60,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseApiVersionSet();
 
 app.MapCarter();
 
