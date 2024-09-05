@@ -18,6 +18,6 @@ public class DeleteCommentHandler(
 
         return result.IsSuccess
             ? Result.Success()
-            : Result.Failure(CommentErrors.NotDeleted);
+            : Result.Failure(result.Error);
     }
 }

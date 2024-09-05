@@ -97,6 +97,9 @@ public class CommentRepository(
 
         var comment = await GetAsync(c => c.Id == id);
 
-        return await DeleteAsync(comment.Value);
+        if (comment.IsSuccess) 
+            return await DeleteAsync(comment.Value);
+
+        return Result.Failure(CommentErrors.NotFound);
     }
 }
