@@ -1,5 +1,4 @@
 ﻿using Carter;
-using Comment.Api.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +6,7 @@ namespace Comment.Api.Features.EditComment;
 
 public record EditCommentRequest(string Text);
 
-public class EditCommentEndpoint() : CarterModule("api/v{version:apiVersion}/comments")
+public class EditCommentEndpoint() : CarterModule("comments")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -25,7 +24,6 @@ public class EditCommentEndpoint() : CarterModule("api/v{version:apiVersion}/com
 
             return Results.Ok(response);
         })
-        .WithApiVersionSet(ApiVersioning.ApiVersionSet)
         .MapToApiVersion(1);
     }
 }

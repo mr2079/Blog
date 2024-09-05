@@ -1,6 +1,5 @@
 using Asp.Versioning;
 using Carter;
-using Comment.Api.Extensions;
 using Comment.Api.Middlewares;
 using Comment.Api.Persistence.Context;
 using Comment.Api.Persistence.Contracts;
@@ -61,8 +60,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
-app.UseApiVersionSet();
+var apiVersionSet = app.NewApiVersionSet()
+    .HasApiVersion(new ApiVersion(1))
+    .HasApiVersion(new ApiVersion(2))
+    .ReportApiVersions()
+    .Build();
 
-app.MapCarter();
+app.MapGroup("api/v{version:apiVersion}")
+    .WithApiVersionSet(apiVersionSet)
+    .MapCarter();
 
 app.Run();

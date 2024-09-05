@@ -1,11 +1,10 @@
 ﻿using Carter;
-using Comment.Api.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Comment.Api.Features.GetComment;
 
-public class GetCommentEndpoint() : CarterModule("api/v{version:apiVersion}/comments")
+public class GetCommentEndpoint() : CarterModule("comments")
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -29,7 +28,6 @@ public class GetCommentEndpoint() : CarterModule("api/v{version:apiVersion}/comm
 
             return Results.Ok(response);
         })
-        .WithApiVersionSet(ApiVersioning.ApiVersionSet)
         .MapToApiVersion(1);
 
         app.MapGet("/{id:guid}", async Task<IResult> (
@@ -43,7 +41,6 @@ public class GetCommentEndpoint() : CarterModule("api/v{version:apiVersion}/comm
 
             return Results.Ok(response);
         })
-        .WithApiVersionSet(ApiVersioning.ApiVersionSet)
         .MapToApiVersion(1);
     }
 }
