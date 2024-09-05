@@ -19,7 +19,9 @@ builder.Services.AddSingleton<ICommentContext, CommentContext>();
 
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
-builder.Services.AddScoped<ExceptionHandlingMiddleware>();
+builder.Services.AddExceptionHandler<ExceptionHandlingMiddleware>();
+
+builder.Services.AddProblemDetails();
 
 builder.Services.AddAuthorization();
 
@@ -38,7 +40,7 @@ if (app.Environment.IsDevelopment())
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseApplicationExceptionHandler();
+    app.UseExceptionHandler(_ => { });
 }
 
 app.UseAuthorization();

@@ -1,27 +1,24 @@
 ﻿using Comment.Api.Exceptions;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace Comment.Api.Middlewares;
 
-public class ExceptionHandlingMiddleware : IMiddleware
+internal sealed class ExceptionHandlingMiddleware : IExceptionHandler
 {
-    public async Task InvokeAsync(
-        HttpContext context,
-        RequestDelegate next)
+    public async ValueTask<bool> TryHandleAsync(
+        HttpContext httpContext,
+        Exception exception,
+        CancellationToken cancellationToken)
     {
-        try
-        {
-            await next(context);
-        }
-        catch (Exception exception)
-        {
-            var exceptionDetails = GetExceptionDetails(exception);
+        var exceptionDetails = GetExceptionDetails(exception);
 
-            var response = new Response(false, exceptionDetails.Detail);
+        var response = new Response(false, exceptionDetails.Detail);
 
-            context.Response.StatusCode = StatusCodes.Status200OK;
+        httpContext.Response.StatusCode = StatusCodes.Status200OK;
 
-            await context.Response.WriteAsJsonAsync(response);
-        }
+        await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
+
+        return true;
     }
 
     private static ExceptionDetails GetExceptionDetails(Exception exception)
