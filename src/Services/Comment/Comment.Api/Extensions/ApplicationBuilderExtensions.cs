@@ -1,12 +1,11 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.Builder;
-using Comment.Api.Middlewares;
 
 namespace Comment.Api.Extensions;
 
 public static class ApiVersioning
 {
-    public static ApiVersionSet? ApiVersionSet;
+    public static ApiVersionSet ApiVersionSet = null!;
 }
 
 public static class ApplicationBuilderExtensions

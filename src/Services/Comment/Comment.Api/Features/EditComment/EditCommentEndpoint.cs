@@ -1,5 +1,4 @@
-﻿using BuildingBlocks.Extensions;
-using Carter;
+﻿using Carter;
 using Comment.Api.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +25,7 @@ public class EditCommentEndpoint() : CarterModule("api/v{version:apiVersion}/com
 
             return Results.Ok(response);
         })
-        .WithApiVersionSet(ApiVersioning.ApiVersionSet!)
+        .WithApiVersionSet(ApiVersioning.ApiVersionSet)
         .MapToApiVersion(1);
     }
 }

@@ -1,6 +1,4 @@
-﻿using Asp.Versioning;
-using BuildingBlocks.Extensions;
-using Carter;
+﻿using Carter;
 using Comment.Api.Extensions;
 using Mapster;
 using MediatR;
@@ -31,7 +29,7 @@ public class AddCommentEndpoint() : CarterModule("api/v{version:apiVersion}/comm
 
             return Results.Ok(response);
         })
-        .WithApiVersionSet(ApiVersioning.ApiVersionSet!)
+        .WithApiVersionSet(ApiVersioning.ApiVersionSet)
         .MapToApiVersion(1);
     }
 }

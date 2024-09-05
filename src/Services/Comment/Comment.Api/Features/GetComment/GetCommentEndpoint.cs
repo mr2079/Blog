@@ -1,5 +1,4 @@
-﻿using BuildingBlocks.Extensions;
-using Carter;
+﻿using Carter;
 using Comment.Api.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +29,7 @@ public class GetCommentEndpoint() : CarterModule("api/v{version:apiVersion}/comm
 
             return Results.Ok(response);
         })
-        .WithApiVersionSet(ApiVersioning.ApiVersionSet!)
+        .WithApiVersionSet(ApiVersioning.ApiVersionSet)
         .MapToApiVersion(1);
 
         app.MapGet("/{id:guid}", async Task<IResult> (
@@ -44,7 +43,7 @@ public class GetCommentEndpoint() : CarterModule("api/v{version:apiVersion}/comm
 
             return Results.Ok(response);
         })
-        .WithApiVersionSet(ApiVersioning.ApiVersionSet!)
+        .WithApiVersionSet(ApiVersioning.ApiVersionSet)
         .MapToApiVersion(1);
     }
 }

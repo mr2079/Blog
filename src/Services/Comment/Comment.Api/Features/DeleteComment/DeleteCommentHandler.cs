@@ -1,5 +1,4 @@
-﻿using Comment.Api.Errors;
-using Comment.Api.Persistence.Contracts;
+﻿using Comment.Api.Persistence.Contracts;
 
 namespace Comment.Api.Features.DeleteComment;
 
