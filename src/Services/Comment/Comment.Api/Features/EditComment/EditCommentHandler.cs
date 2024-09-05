@@ -17,7 +17,7 @@ public class DeleteCommentHandler(
         var comment = await commentRepository.GetAsync(
             c => c.Id == command.Id);
 
-        comment.Value.Update(comment.Value.Text);
+        comment.Value.Update(command.Text);
 
         var result = await commentRepository.UpdateAsync(comment.Value);
 

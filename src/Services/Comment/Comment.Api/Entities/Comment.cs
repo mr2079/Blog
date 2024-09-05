@@ -56,10 +56,10 @@ public sealed class Comment : Entity
         Replies = replies;
     }
 
-    public void RemoveReply(ObjectId id)
+    public void RemoveReply(Guid id)
     {
         var replies = Replies?.ToList();
-        var reply = replies?.SingleOrDefault(c => Equals(c.Id, id));
+        var reply = replies?.SingleOrDefault(c => c.Id == id);
         if (reply is null) return;
         replies?.Remove(reply);
         Replies = replies;
