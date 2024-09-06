@@ -1,5 +1,4 @@
 ﻿using Article.Domain.Abstractions;
-using ArticleEntity = Article.Domain.Articles.Article;
 
 namespace Article.Domain.Categories;
 

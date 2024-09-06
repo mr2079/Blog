@@ -1,5 +1,4 @@
 ﻿using Article.Domain.Abstractions;
-using Article.Domain.Categories;
 
 namespace Article.Domain.Articles;
 
@@ -32,7 +31,7 @@ public class Article : Entity
     public Tag? Tag { get; private set; }
     public int View { get; private set; }
 
-    public virtual Category? Category { get; set; }
+    public virtual CategoryEntity? Category { get; set; }
 
     public static Article Create(
         Guid categoryId,

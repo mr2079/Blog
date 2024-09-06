@@ -22,7 +22,7 @@ public class Repository<TEntity>(
 
     public void Delete(TEntity entity)
     {
-        entity.Delete(true);
+        entity.Delete();
         context.Entry(entity).State = EntityState.Modified;
     }
 }
