@@ -26,20 +26,18 @@ public class AddCommentHandler(
             command.Text,
             command.ParentId);
 
-        if (command.ParentId == null)
-        {
-            await commentRepository.CreateAsync(comment);
+        await commentRepository.CreateAsync(comment);
 
+        if (comment.ParentId == null)
             return Result.Success(new AddCommentResult(comment.Id));
-        }
 
         var parent = await commentRepository.GetAsync(
-            c => c.Id == command.ParentId);
+                c => c.Id == command.ParentId);
 
         if (parent.IsFailure)
             return Result.Failure<AddCommentResult>(parent.Error);
 
-        parent.Value.AddReply(comment);
+        parent.Value.AddReply(comment.Id);
 
         var result = await commentRepository.UpdateAsync(parent.Value);
 

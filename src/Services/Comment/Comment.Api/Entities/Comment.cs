@@ -25,8 +25,8 @@ public sealed class Comment : Entity
     public Guid? ParentId { get; private set; }
     [BsonElement("text")]
     public string Text { get; private set; }
-    [BsonElement("replies")]
-    public ICollection<Comment>? Replies { get; private set; }
+    [BsonElement("reply_ids")]
+    public ICollection<Guid>? ReplyIds { get; private set; }
 
     public static Comment Create(
         object userId,
@@ -48,19 +48,17 @@ public sealed class Comment : Entity
         Text = text;
     }
 
-    public void AddReply(Comment reply)
+    public void AddReply(Guid id)
     {
-        var replies = Replies?.ToList() ?? new List<Comment>();
-        replies.Add(reply);
-        Replies = replies;
+        var replyIds = ReplyIds?.ToList() ?? new List<Guid>();
+        replyIds.Add(id);
+        ReplyIds = replyIds;
     }
 
     public void RemoveReply(Guid id)
     {
-        var replies = Replies?.ToList();
-        var reply = replies?.SingleOrDefault(c => c.Id == id);
-        if (reply is null) return;
-        replies?.Remove(reply);
-        Replies = replies;
+        var replyIds = ReplyIds?.ToList();
+        replyIds?.Remove(id);
+        ReplyIds = replyIds;
     }
 }
