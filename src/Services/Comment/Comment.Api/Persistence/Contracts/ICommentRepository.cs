@@ -1,16 +1,17 @@
-﻿using System.Linq.Expressions;
+﻿using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace Comment.Api.Persistence.Contracts;
 
 public interface ICommentRepository
 {
     Task<Result<IReadOnlyList<CommentEntity>>> GetListAsync(
-        Expression<Func<CommentEntity, bool>>? predicate = null,
+        FilterDefinition<CommentEntity>? filter = null,
         int? skip = null,
         int? limit = null);
 
     Task<Result<CommentEntity>> GetAsync(
-        Expression<Func<CommentEntity, bool>> predicate);
+        FilterDefinition<CommentEntity> filter);
 
     Task CreateAsync(CommentEntity comment);
 

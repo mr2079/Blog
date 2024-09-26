@@ -10,16 +10,10 @@ public class CommentRepository(
     ICommentContext context) : ICommentRepository
 {
     public async Task<Result<IReadOnlyList<CommentEntity>>> GetListAsync(
-        Expression<Func<CommentEntity, bool>>? predicate = null,
+        FilterDefinition<CommentEntity>? filter = null,
         int? skip = 0,
         int? limit = 10)
     {
-        Expression<Func<CommentEntity, bool>> where = c => !c.IsDeleted;
-
-        if (predicate != null) where = where.And(predicate);
-
-        var filter = Builders<CommentEntity>.Filter.Where(where);
-
         var query = context.Comments.Find(filter);
 
         if (skip != null) query.Skip(skip);
@@ -32,17 +26,13 @@ public class CommentRepository(
     }
 
     public async Task<Result<CommentEntity>> GetAsync(
-        Expression<Func<CommentEntity, bool>> predicate)
+        FilterDefinition<CommentEntity> filter)
     {
-        PredicateArgumentNullException.ThrowIfNull(predicate);
+        PredicateArgumentNullException.ThrowIfNull(filter);
 
-        Expression<Func<CommentEntity, bool>> where = c => !c.IsDeleted;
-
-        where = where.And(predicate);
-
-        var filter = Builders<CommentEntity>.Filter.Where(where);
-
-        var item = await context.Comments.Find(filter).SingleOrDefaultAsync();
+        var item = await context.Comments
+            .Find(filter)
+            .SingleOrDefaultAsync();
 
         return item is not null
             ? Result.Success(item)
@@ -95,7 +85,9 @@ public class CommentRepository(
     {
         GuidArgumentException.ThrowIfNull(id);
 
-        var comment = await GetAsync(c => c.Id == id);
+        var filter = Builders<CommentEntity>.Filter.Eq(c => c.Id, id);
+
+        var comment = await GetAsync(filter);
 
         if (comment.IsSuccess) 
             return await DeleteAsync(comment.Value);
