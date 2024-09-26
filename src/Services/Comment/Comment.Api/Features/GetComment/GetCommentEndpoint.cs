@@ -1,7 +1,9 @@
 ﻿using Carter;
+using Comment.Api.Entities;
 using Comment.Api.Persistence.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using System.Linq.Expressions;
 
 namespace Comment.Api.Features.GetComment;
@@ -31,8 +33,8 @@ public class GetCommentEndpoint() : CarterModule("comments")
                 var response = result.ToResponse();
 
                 return Results.Ok(response);
-            })
-            .MapToApiVersion(1);
+
+            }).MapToApiVersion(1);
 
 
         app.MapGet("/{id:guid}", async Task<IResult> (
@@ -45,8 +47,8 @@ public class GetCommentEndpoint() : CarterModule("comments")
                 var response = result.ToResponse();
 
                 return Results.Ok(response);
-            })
-            .MapToApiVersion(1);
+
+            }).MapToApiVersion(1);
 
         #endregion
 
@@ -76,22 +78,23 @@ public class GetCommentEndpoint() : CarterModule("comments")
                 var response = getListResult.ToResponse();
 
                 return Results.Ok(response);
-            })
-            .MapToApiVersion(2);
+
+            }).MapToApiVersion(2);
 
 
         app.MapGet("/{id:guid}", async Task<IResult> (
                 [FromRoute] Guid id,
                 ICommentRepository commentRepository) =>
-            {
-                var getCommentResult = await commentRepository.GetAsync(
-                    c => c.Id == id);
+        {
+            var filter = Builders<CommentEntity>.Filter.Eq(c => c.Id, id);
 
-                var response = getCommentResult.ToResponse();
+            var getCommentResult = await commentRepository.GetAsync(filter);
 
-                return Results.Ok(response);
-            })
-            .MapToApiVersion(2);
+            var response = getCommentResult.ToResponse();
+
+            return Results.Ok(response);
+
+        }).MapToApiVersion(2);
 
         #endregion
     }

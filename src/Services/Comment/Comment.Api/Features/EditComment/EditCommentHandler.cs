@@ -1,4 +1,5 @@
 ﻿using Comment.Api.Persistence.Contracts;
+using MongoDB.Driver;
 
 namespace Comment.Api.Features.EditComment;
 
@@ -14,8 +15,9 @@ public class DeleteCommentHandler(
         EditCommentCommand command,
         CancellationToken cancellationToken)
     {
-        var comment = await commentRepository.GetAsync(
-            c => c.Id == command.Id);
+        var filter = Builders<CommentEntity>.Filter.Eq(c => c.Id, command.Id);
+
+        var comment = await commentRepository.GetAsync(filter);
 
         comment.Value.Update(command.Text);
 

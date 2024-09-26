@@ -1,4 +1,5 @@
 ﻿using Comment.Api.Persistence.Contracts;
+using MongoDB.Driver;
 
 namespace Comment.Api.Features.AddComment;
 
@@ -31,8 +32,9 @@ public class AddCommentHandler(
         if (comment.ParentId == null)
             return Result.Success(new AddCommentResult(comment.Id));
 
-        var parent = await commentRepository.GetAsync(
-                c => c.Id == command.ParentId);
+        var filter = Builders<CommentEntity>.Filter.Eq(c => c.Id, comment.ParentId);
+
+        var parent = await commentRepository.GetAsync(filter);
 
         if (parent.IsFailure)
             return Result.Failure<AddCommentResult>(parent.Error);
